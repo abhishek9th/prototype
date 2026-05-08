@@ -11,6 +11,7 @@ import StudentDashboard from './pages/StudentDashboard';
 import ClientDashboard from './pages/ClientDashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Admin from './pages/Admin';
 import { useEffect } from 'react';
 
 function ScrollToTop() {
@@ -36,12 +37,14 @@ function PageWrapper({ children }: { children: React.ReactNode }) {
 
 function AppRoutes() {
   const location = useLocation();
-  const hideFooter = location.pathname === '/login';
+  const isAdmin = location.pathname.startsWith('/admin');
+  const hideFooter = location.pathname === '/login' || isAdmin;
+  const hideNavbar = isAdmin;
 
   return (
     <>
       <ScrollToTop />
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       <main className="min-h-screen">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
@@ -53,6 +56,7 @@ function AppRoutes() {
             <Route path="/dashboard/client" element={<PageWrapper><ClientDashboard /></PageWrapper>} />
             <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
             <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+            <Route path="/admin" element={<PageWrapper><Admin /></PageWrapper>} />
           </Routes>
         </AnimatePresence>
       </main>
