@@ -12,6 +12,7 @@ import {
   ThreeDScrollTriggerContainer,
   ThreeDScrollTriggerRow,
 } from '../components/ThreeDScrollTrigger';
+import ElectroBorder from '../components/ElectroBorder';
 import { students, testimonials, stats, categories, type Testimonial } from '../data/mockData';
 import { useState } from 'react';
 
@@ -351,27 +352,37 @@ export default function Landing() {
 
       {/* CTA */}
       <section className="section-padding">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <div className="relative overflow-hidden rounded-3xl gradient-hero p-12 lg:p-16 text-center text-white">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent)]" />
-              <div className="relative">
-                <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
-                  Ready to Get Started?
-                </h2>
-                <p className="text-primary-100 mb-8 max-w-lg mx-auto">
-                  Join thousands of students and businesses already using Rent-a-Skill to connect, collaborate, and grow.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to="/login" className="px-8 py-3.5 bg-white text-primary-700 font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-lg">
-                    Get Started Free
-                  </Link>
-                  <Link to="/marketplace" className="px-8 py-3.5 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors">
-                    Browse Marketplace
-                  </Link>
+            <ElectroBorder
+              borderColor="#7df9ff"
+              borderWidth={2}
+              animationSpeed={1}
+              distortion={1.1}
+              glowBlur={36}
+              radius="1.5rem"
+              className="rounded-3xl"
+            >
+              <div className="relative overflow-hidden rounded-3xl gradient-hero p-12 lg:p-16 text-center text-white">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent)]" />
+                <div className="relative">
+                  <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4">
+                    Ready to Get Started?
+                  </h2>
+                  <p className="text-primary-100 mb-8 max-w-lg mx-auto">
+                    Join thousands of students and businesses already using Rent-a-Skill to connect, collaborate, and grow.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link to="/login" className="px-8 py-3.5 bg-white text-primary-700 font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-lg">
+                      Get Started Free
+                    </Link>
+                    <Link to="/marketplace" className="px-8 py-3.5 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors">
+                      Browse Marketplace
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ElectroBorder>
           </AnimatedSection>
         </div>
       </section>
