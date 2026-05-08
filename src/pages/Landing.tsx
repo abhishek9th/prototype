@@ -8,8 +8,40 @@ import {
 import AnimatedSection from '../components/AnimatedSection';
 import AnimatedCounter from '../components/AnimatedCounter';
 import StudentCard from '../components/StudentCard';
-import { students, testimonials, stats, categories } from '../data/mockData';
+import {
+  ThreeDScrollTriggerContainer,
+  ThreeDScrollTriggerRow,
+} from '../components/ThreeDScrollTrigger';
+import { students, testimonials, stats, categories, type Testimonial } from '../data/mockData';
 import { useState } from 'react';
+
+function TestimonialCard({ t }: { t: Testimonial }) {
+  return (
+    <div className="mx-3 w-[340px] sm:w-[380px] shrink-0 whitespace-normal align-top">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+        <div className="flex gap-1 mb-4">
+          {Array.from({ length: t.rating }).map((_, j) => (
+            <Star key={j} className="w-4 h-4 text-amber-400 fill-amber-400" />
+          ))}
+        </div>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6 flex-1">
+          &ldquo;{t.text}&rdquo;
+        </p>
+        <div className="flex items-center gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
+          <img
+            src={t.avatar}
+            alt={t.name}
+            className="w-10 h-10 rounded-full object-cover"
+          />
+          <div className="min-w-0">
+            <p className="font-medium text-gray-900 dark:text-white text-sm truncate">{t.name}</p>
+            <p className="text-xs text-gray-500 truncate">{t.role}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const iconMap: Record<string, React.ElementType> = {
   Palette, Code, Video, PenTool, Camera, BookOpen, Share2, BarChart3,
@@ -250,40 +282,36 @@ export default function Landing() {
       </section>
 
       {/* Testimonials */}
-      <section className="section-padding bg-gray-50 dark:bg-gray-900/50">
-        <div className="max-w-7xl mx-auto">
+      <section className="section-padding bg-gray-50 dark:bg-gray-900/50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
                 What People Say
               </h2>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Hear from businesses and clients who found their perfect match.
+                Hear from businesses and clients who found their perfect match. Scroll faster to speed up the cards.
               </p>
             </div>
           </AnimatedSection>
+        </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <AnimatedSection key={t.id} delay={i * 0.1}>
-                <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 h-full flex flex-col">
-                  <div className="flex gap-1 mb-4">
-                    {Array.from({ length: t.rating }).map((_, j) => (
-                      <Star key={j} className="w-4 h-4 text-amber-400 fill-amber-400" />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6 flex-1">"{t.text}"</p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
-                    <div>
-                      <p className="font-medium text-gray-900 dark:text-white text-sm">{t.name}</p>
-                      <p className="text-xs text-gray-500">{t.role}</p>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 bg-gradient-to-r from-gray-50 dark:from-gray-900/80 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 bg-gradient-to-l from-gray-50 dark:from-gray-900/80 to-transparent z-10" />
+
+          <ThreeDScrollTriggerContainer className="space-y-5 py-2">
+            <ThreeDScrollTriggerRow baseVelocity={4} direction={1}>
+              {testimonials.slice(0, 8).map((t) => (
+                <TestimonialCard key={t.id} t={t} />
+              ))}
+            </ThreeDScrollTriggerRow>
+            <ThreeDScrollTriggerRow baseVelocity={4} direction={-1}>
+              {testimonials.slice(8).map((t) => (
+                <TestimonialCard key={t.id} t={t} />
+              ))}
+            </ThreeDScrollTriggerRow>
+          </ThreeDScrollTriggerContainer>
         </div>
       </section>
 
